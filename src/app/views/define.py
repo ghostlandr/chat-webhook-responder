@@ -8,6 +8,7 @@ import urllib2
 from webapp2 import RequestHandler
 
 from app.parsers.dictionary import get_definitions
+from settings import DEFINE_TOKENS
 
 
 class DefineView(RequestHandler):
@@ -18,7 +19,7 @@ class DefineView(RequestHandler):
         token = self.request.POST['token']
         text = self.request.POST.get('text')
 
-        if token == '70XqnEL12zOlA08Fo0lraciE':
+        if token in DEFINE_TOKENS:
             # It's us!
             term = text.split(':')[1].strip()
 
