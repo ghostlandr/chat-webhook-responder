@@ -1,8 +1,6 @@
 """
 dictionary.com parsers
 """
-import logging
-
 from bs4 import BeautifulSoup
 
 
