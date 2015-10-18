@@ -4,13 +4,13 @@ Definition webhook responder
 import logging
 import urllib2
 
-from app.views import BaseResponder
+from app.responders import BaseResponder
 
 from app.parsers.dictionary import get_definitions
 from settings import DEFINE_TOKENS
 
 
-class DefineView(BaseResponder):
+class DefineResponder(BaseResponder):
     """ Define a word! """
     DICTIONARY_TEMPLATE = 'http://dictionary.reference.com/browse/{}'
 
