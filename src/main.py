@@ -1,10 +1,7 @@
 """ Entry point for the app """
-from webapp2 import Route, WSGIApplication
+from webapp2 import WSGIApplication
 
-
-ROUTES = [
-    Route('/define', handler='app.responders.define.DefineResponder'),
-]
+from urls import ROUTES
 
 
 APP = WSGIApplication(routes=ROUTES)

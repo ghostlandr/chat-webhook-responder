@@ -4,28 +4,23 @@ Definition webhook responder
 import logging
 import urllib2
 
-from app.responders import BaseResponder
-
 from app.parsers.dictionary import get_definitions
 from settings import DEFINE_TOKENS
 
 
-class DefineResponder(BaseResponder):
+class DefineResponder(object):
     """ Define a word! """
     DICTIONARY_TEMPLATE = 'http://dictionary.reference.com/browse/{}'
+    KEY_WORD = 'define'
 
     @staticmethod
     def check_credentials(token):
         return token in DEFINE_TOKENS
 
-    def process(self, text, trigger_word):
-        term = text.split(':')[1].strip()
-
-        logging.info('Going to town on: %s', term)
-
+    def get_definitions(self, term):
         if ' ' in term:
             # Won't work so hot at this time, return an error
-            return 'Only single words are supported right now. :bow:'
+            return 'Only single words are supported right now.'
 
         logging.info('Searching dictionary.com for term: %s', term)
 
@@ -36,9 +31,9 @@ class DefineResponder(BaseResponder):
             return self._format_response(term, definitions)
         except urllib2.URLError as ue:
             if ue.code == 404:
-                return 'Can\'t find anything for *{}*! :bow:'.format(term)
+                return 'Can\'t find anything for *{}*!'.format(term)
             # We don't know (read: haven't implemented) what went wrong, return something generic.
-            return 'Something went wrong with the request. :bow:'
+            return 'Something went wrong with the request.'
 
     @staticmethod
     def _format_response(term, definitions):
@@ -56,5 +51,3 @@ class DefineResponder(BaseResponder):
                                for index, definition in enumerate(definitions[:5])])
 
         return response
-
-
