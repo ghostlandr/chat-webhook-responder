@@ -1,4 +1,4 @@
-# slack-webook-responder
+# chat-webook-responder
 An assortment (I hope) of webhooks to tie into Slack
 
 ## Current Integrations
