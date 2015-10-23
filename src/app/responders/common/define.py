@@ -5,17 +5,12 @@ import logging
 import urllib2
 
 from app.parsers.dictionary import get_definitions
-from settings import DEFINE_TOKENS
 
 
 class DefineResponder(object):
     """ Define a word! """
     DICTIONARY_TEMPLATE = 'http://dictionary.reference.com/browse/{}'
     KEY_WORD = 'define'
-
-    @staticmethod
-    def check_credentials(token):
-        return token in DEFINE_TOKENS
 
     def get_definitions(self, term):
         if ' ' in term:
