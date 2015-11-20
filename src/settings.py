@@ -12,3 +12,9 @@ DEFINE_TOKENS = {
         2938336,
     ]
 }
+
+UDEFINE_TOKENS = {
+    'hipchat': [
+        3167402
+    ]
+}
