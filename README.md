@@ -3,6 +3,14 @@ An assortment (I hope) of webhooks to tie into Slack, HipChat, or any other chat
 
 ## Current Integrations
 
-### Define `define: <word>`
+### HipChat and Slack
+
+#### Define `define: <word>` or `/define <word>`
 
 Use the trigger_word and get a definition back. Looks something like this:
+
+### HipChat only
+
+#### Urban Dictionary Define `/udefine <word or phrase>`
+
+Use a word or phrase and get several very naughty (usually) definitions back.
