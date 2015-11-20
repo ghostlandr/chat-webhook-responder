@@ -10,6 +10,7 @@ from app.parsers.dictionary import get_definitions
 class DefineResponder(object):
     """ Define a word! """
     DICTIONARY_TEMPLATE = 'http://dictionary.reference.com/browse/{}'
+    DICTIONARY_DOT_COM_DEFINITIONS_CLASS = 'def-content'
     KEY_WORD = 'define'
 
     def get_definitions(self, term):
@@ -21,7 +22,7 @@ class DefineResponder(object):
 
         try:
             result = urllib2.urlopen(self.DICTIONARY_TEMPLATE.format(term))
-            definitions = get_definitions(result)
+            definitions = get_definitions(result, self.DICTIONARY_DOT_COM_DEFINITIONS_CLASS)
 
             return self._format_response(term, definitions)
         except urllib2.URLError as ue:
