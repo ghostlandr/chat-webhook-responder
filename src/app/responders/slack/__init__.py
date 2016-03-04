@@ -25,3 +25,7 @@ class SlackResponderMixin(RequestHandler, BaseResponder):
         return self.response.write(json.dumps({
             'text': args['text']
         }))
+
+    @staticmethod
+    def prepare_string(args):
+        return args['text'].split(':')[1]

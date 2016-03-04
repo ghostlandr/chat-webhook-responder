@@ -1,4 +1,4 @@
-""" define.py """
+""" udefine.py """
 from app.responders.common.udefine import UDefineResponder
 from app.responders.hipchat import HipChatResponderMixin
 
