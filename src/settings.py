@@ -6,6 +6,7 @@ DEFINE_TOKENS = {
     # Slack tokens.
     'slack': [
         '70XqnEL12zOlA08Fo0lraciE',
+        'ayYWtEzhfqh5GcXdEqrD3H3h',
     ],
     # HipChat integration ids.
     'hipchat': [
