@@ -29,3 +29,7 @@ class HipChatResponderMixin(RequestHandler, BaseResponder):
             'notify': args.get('notify', False),
             'message_format': args.get('message_format', 'text')
         }))
+
+    @staticmethod
+    def prepare_string(args):
+        return args['text'].split(':')[1]

@@ -7,6 +7,7 @@ DEFINE_TOKENS = {
     'slack': [
         '70XqnEL12zOlA08Fo0lraciE',
         'ayYWtEzhfqh5GcXdEqrD3H3h',
+        '7b5WbqiybRqPDRTm2e9GvTUL',
     ],
     # HipChat integration ids. Discovered by searching the logs
     'hipchat': [
@@ -17,6 +18,7 @@ DEFINE_TOKENS = {
 UDEFINE_TOKENS = {
     'slack': [
         'psLRq4Ft03VP3XekaZgH6aF7',
+        '4xmwr5Age6rRmwNFAPJMkNVN',
     ],
     'hipchat': [
         3167402
