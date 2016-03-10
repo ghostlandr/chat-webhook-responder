@@ -4,6 +4,7 @@ Definition webhook responder
 import logging
 import urllib2
 
+from app.responders.slack import SlackResponder
 from settings import DEFINE_TOKENS
 from app.parsers.dictionary import get_definitions
 
@@ -13,7 +14,7 @@ class DefineResponder(object):
     DICTIONARY_URI_TEMPLATE = 'http://dictionary.reference.com/browse/{}'
     DICTIONARY_DOT_COM_DEFINITIONS_CLASS = 'def-content'
     KEY_WORD = 'define'
-    PLATFORM = ''  # Override in child class
+    TOKENS = DEFINE_TOKENS
 
     def get_definitions(self, term):
         if ' ' in term:
@@ -23,7 +24,7 @@ class DefineResponder(object):
         logging.info('Searching dictionary.com for term: %s', term)
 
         try:
-            result = urllib2.urlopen(self.DICTIONARY_URI_TEMPLATE.format(term))
+            result = urllib2.urlopen(self.DICTIONARY_URI_TEMPLATE.format(urllib2.quote(term)))
             definitions = get_definitions(result, self.DICTIONARY_DOT_COM_DEFINITIONS_CLASS)
 
             return self._format_response(term, definitions)
@@ -50,11 +51,11 @@ class DefineResponder(object):
 
         return response
 
-    @classmethod
-    def check_credentials(cls, token):
-        return token in DEFINE_TOKENS[cls.PLATFORM]
-
     def process(self, args):
-        term = ' '.join(self.prepare_string(args).split(' ')[1:]).strip()
+        return self.get_definitions(self.prepare_string(args))
 
-        return self.get_definitions(term)
+
+class DefineSlackResponder(DefineResponder, SlackResponder):
+    """
+    Responds to Slack define requests
+    """

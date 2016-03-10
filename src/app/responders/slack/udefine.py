@@ -1,11 +1,11 @@
 """ udefine.py """
 from app.responders.common.udefine import UDefineResponder
-from app.responders.slack import SlackResponderMixin
+from app.responders.slack import SlackResponder
 
 from settings import UDEFINE_TOKENS
 
 
-class UDefineSlackResponder(UDefineResponder, SlackResponderMixin):
+class UDefineSlackResponder(UDefineResponder, SlackResponder):
     """
     Responds to /udefine/slack/ requests
     """

@@ -5,6 +5,8 @@ import logging
 import urllib2
 
 from app.parsers.dictionary import get_definitions
+from app.responders.slack import SlackResponder
+from settings import UDEFINE_TOKENS
 
 
 class UDefineResponder(object):
@@ -12,6 +14,7 @@ class UDefineResponder(object):
     URBAN_DICTIONARY_TEMPLATE = 'http://www.urbandictionary.com/define.php?term={}'
     URBAN_DICTIONARY_DOT_COM_DEFINITIONS_CLASS = 'meaning'
     KEY_WORD = 'define'
+    TOKENS = UDEFINE_TOKENS
 
     def get_definitions(self, term):
         logging.info('Searching urbandictionary.com for term: %s', term)
@@ -40,3 +43,8 @@ class UDefineResponder(object):
     def process(self, args):
         return self.get_definitions(self.prepare_string(args))
 
+
+class UDefineSlackResponder(UDefineResponder, SlackResponder):
+    """
+    Responds to /udefine/slack/ requests
+    """

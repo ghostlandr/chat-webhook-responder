@@ -1,11 +1,9 @@
 """ define.py """
 from app.responders.common.define import DefineResponder
-from app.responders.slack import SlackResponderMixin
-from settings import DEFINE_TOKENS
+from app.responders.slack import SlackResponder
 
 
-class DefineSlackResponder(DefineResponder, SlackResponderMixin):
-    PLATFORM = 'slack'
+class DefineSlackResponder(DefineResponder, SlackResponder):
 
     def process(self, args):
         return self.get_definitions(self.prepare_string(args))

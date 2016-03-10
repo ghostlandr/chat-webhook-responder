@@ -6,12 +6,10 @@ from webapp2 import RequestHandler
 from app.responders import BaseResponder
 
 
-class SlackResponderMixin(RequestHandler, BaseResponder):
+class SlackResponder(RequestHandler, BaseResponder):
     """
     Base responder that knows the formats Slack sends/expects.
     """
-    PLATFORM = 'slack'
-
     def post(self):
         """
         Receive the post!
@@ -28,6 +26,13 @@ class SlackResponderMixin(RequestHandler, BaseResponder):
             'text': args['text']
         }))
 
+    def process(self, args):
+        raise NotImplementedError()
+
+    @classmethod
+    def check_credentials(cls, token):
+        return token in cls.TOKENS['slack']
+
     @staticmethod
     def prepare_string(args):
-        return args['text'].split(':')[1].strip()
+        return args['text'].split(args['trigger_word'])[1].strip()
