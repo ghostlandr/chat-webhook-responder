@@ -17,7 +17,7 @@ class UDefineResponder(object):
         logging.info('Searching urbandictionary.com for term: %s', term)
 
         try:
-            result = urllib2.urlopen(self.URBAN_DICTIONARY_TEMPLATE.format(term))
+            result = urllib2.urlopen(self.URBAN_DICTIONARY_TEMPLATE.format(urllib2.quote(term)))
             definitions = get_definitions(result, self.URBAN_DICTIONARY_DOT_COM_DEFINITIONS_CLASS)
 
             return self._format_response(term, definitions)
@@ -36,3 +36,7 @@ class UDefineResponder(object):
         response += '\n\n'.join(definition for definition in definitions[:5])
 
         return response
+
+    def process(self, args):
+        return self.get_definitions(self.prepare_string(args))
+

@@ -4,14 +4,16 @@ Definition webhook responder
 import logging
 import urllib2
 
+from settings import DEFINE_TOKENS
 from app.parsers.dictionary import get_definitions
 
 
 class DefineResponder(object):
     """ Define a word! """
-    DICTIONARY_TEMPLATE = 'http://dictionary.reference.com/browse/{}'
+    DICTIONARY_URI_TEMPLATE = 'http://dictionary.reference.com/browse/{}'
     DICTIONARY_DOT_COM_DEFINITIONS_CLASS = 'def-content'
     KEY_WORD = 'define'
+    PLATFORM = ''  # Override in child class
 
     def get_definitions(self, term):
         if ' ' in term:
@@ -21,7 +23,7 @@ class DefineResponder(object):
         logging.info('Searching dictionary.com for term: %s', term)
 
         try:
-            result = urllib2.urlopen(self.DICTIONARY_TEMPLATE.format(term))
+            result = urllib2.urlopen(self.DICTIONARY_URI_TEMPLATE.format(term))
             definitions = get_definitions(result, self.DICTIONARY_DOT_COM_DEFINITIONS_CLASS)
 
             return self._format_response(term, definitions)
@@ -43,7 +45,16 @@ class DefineResponder(object):
         response += '*{}*\n\n'.format(term.capitalize())
 
         # Format like '1. Definition text'.
-        response += '\n'.join([str(index + 1) + '. ' + definition.capitalize()
+        response += '\n'.join([unicode(index + 1) + u'. ' + definition.capitalize().strip()
                                for index, definition in enumerate(definitions[:5])])
 
         return response
+
+    @classmethod
+    def check_credentials(cls, token):
+        return token in DEFINE_TOKENS[cls.PLATFORM]
+
+    def process(self, args):
+        term = ' '.join(self.prepare_string(args).split(' ')[1:]).strip()
+
+        return self.get_definitions(term)

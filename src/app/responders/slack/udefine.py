@@ -6,11 +6,9 @@ from settings import UDEFINE_TOKENS
 
 
 class UDefineSlackResponder(UDefineResponder, SlackResponderMixin):
-    @staticmethod
-    def check_credentials(token):
-        return token in UDEFINE_TOKENS['slack']
-
-    def process(self, args):
-        term = ' '.join(self.prepare_string(args).split(' ')[1:]).strip()
-
-        return self.get_definitions(term)
+    """
+    Responds to /udefine/slack/ requests
+    """
+    @classmethod
+    def check_credentials(cls, token):
+        return token in UDEFINE_TOKENS[cls.PLATFORM]

@@ -11,6 +11,6 @@ class UDefineHipChatResponder(UDefineResponder, HipChatResponderMixin):
         return token in UDEFINE_TOKENS['hipchat']
 
     def process(self, args):
-        term = ' '.join(args['item']['message']['message'].split('/')[1].split(' ')[1:]).strip()
+        term = ' '.join(self.prepare_string(args).split(' ')[1:]).strip()
 
         return self.get_definitions(term)

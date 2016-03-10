@@ -32,4 +32,4 @@ class HipChatResponderMixin(RequestHandler, BaseResponder):
 
     @staticmethod
     def prepare_string(args):
-        return args['text'].split(':')[1]
+        return args['item']['message']['message'].split('/')[1]

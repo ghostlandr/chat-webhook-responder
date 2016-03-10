@@ -10,6 +10,8 @@ class SlackResponderMixin(RequestHandler, BaseResponder):
     """
     Base responder that knows the formats Slack sends/expects.
     """
+    PLATFORM = 'slack'
+
     def post(self):
         """
         Receive the post!
@@ -28,4 +30,4 @@ class SlackResponderMixin(RequestHandler, BaseResponder):
 
     @staticmethod
     def prepare_string(args):
-        return args['text'].split(':')[1]
+        return args['text'].split(':')[1].strip()

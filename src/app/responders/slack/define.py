@@ -5,12 +5,7 @@ from settings import DEFINE_TOKENS
 
 
 class DefineSlackResponder(DefineResponder, SlackResponderMixin):
-    @staticmethod
-    def check_credentials(token):
-        return token in DEFINE_TOKENS['slack']
+    PLATFORM = 'slack'
 
     def process(self, args):
-        text = args['text']
-        term = text.split(':')[1].strip()
-
-        return self.get_definitions(term)
+        return self.get_definitions(self.prepare_string(args))

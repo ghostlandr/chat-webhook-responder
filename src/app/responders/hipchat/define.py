@@ -6,11 +6,9 @@ from settings import DEFINE_TOKENS
 
 
 class DefineHipChatResponder(DefineResponder, HipChatResponderMixin):
-    @staticmethod
-    def check_credentials(token):
-        return token in DEFINE_TOKENS['hipchat']
+    PLATFORM = 'hipchat'
 
     def process(self, args):
-        term = args['item']['message']['message'].split('/')[1][len(self.KEY_WORD):].strip()
+        term = self.prepare_string(args)[len(self.KEY_WORD):].strip()
 
         return self.get_definitions(term)
