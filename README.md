@@ -11,4 +11,4 @@ Use the trigger_word and get a definition back. Looks something like this:
 
 #### Urban Dictionary Define `udefine: <word or phrase>` or `/udefine <word or phrase>`
 
-Use a word or phrase and get several very naughty (usually) definitions back.
+Use a word or phrase and get several very (usually) naughty definitions back.
