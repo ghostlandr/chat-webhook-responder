@@ -35,4 +35,7 @@ class SlackResponder(RequestHandler, BaseResponder):
 
     @staticmethod
     def prepare_string(args):
-        return args['text'].split(args['trigger_word'])[1].strip()
+        trigger_word = args['trigger_word']
+        if trigger_word.rfind(':') == -1:
+            trigger_word += ':'
+        return args['text'].split(trigger_word)[1].strip()

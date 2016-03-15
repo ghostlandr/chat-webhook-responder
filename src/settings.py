@@ -24,3 +24,9 @@ UDEFINE_TOKENS = {
         3167402
     ]
 }
+
+GREETER_TOKENS = {
+    'slack': [
+        'HPPx5H6Yq5UL7F2pwfqW9vZ8'
+    ]
+}

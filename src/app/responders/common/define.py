@@ -4,6 +4,7 @@ Definition webhook responder
 import logging
 import urllib2
 
+from app.responders.hipchat import HipChatResponderMixin
 from app.responders.slack import SlackResponder
 from settings import DEFINE_TOKENS
 from app.parsers.dictionary import get_definitions
@@ -59,3 +60,12 @@ class DefineSlackResponder(DefineResponder, SlackResponder):
     """
     Responds to Slack define requests
     """
+
+
+class DefineHipChatResponder(DefineResponder, HipChatResponderMixin):
+    PLATFORM = 'hipchat'
+
+    def process(self, args):
+        term = self.prepare_string(args)[len(self.KEY_WORD):].strip()
+
+        return self.get_definitions(term)
