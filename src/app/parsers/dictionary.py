@@ -16,6 +16,21 @@ def get_definitions(soup, definitions_class):
     return meanings
 
 
+def get_definitions_and_ratings(soup):
+    defs_and_ratings = []
+    for div in soup.find_all(class_='def-panel'):
+        thumbs_div = div.find(class_='thumbs')
+        try:
+            defs_and_ratings.append({
+                'meaning': div.find(class_='meaning').text.strip(),
+                'thumbs_up': thumbs_div.find(class_='up').text.strip(),
+                'thumbs_down': thumbs_div.find(class_='down').text.strip()
+            })
+        except AttributeError:
+            pass
+
+    return defs_and_ratings
+
 def get_difficulty_index(soup):
     try:
         return soup.find(id='difficulty-box').find(class_='subtext').contents[0]

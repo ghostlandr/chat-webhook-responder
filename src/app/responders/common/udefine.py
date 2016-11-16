@@ -4,7 +4,7 @@ Definition webhook responder
 import logging
 import urllib2
 
-from app.parsers.dictionary import get_definitions, get_soup
+from app.parsers.dictionary import get_definitions, get_soup, get_definitions_and_ratings
 from app.responders.slack import SlackResponder
 from settings import UDEFINE_TOKENS
 
@@ -21,7 +21,7 @@ class UDefineResponder(object):
 
         try:
             result = urllib2.urlopen(self.URBAN_DICTIONARY_TEMPLATE.format(urllib2.quote(term)))
-            definitions = get_definitions(get_soup(result), self.URBAN_DICTIONARY_DOT_COM_DEFINITIONS_CLASS)
+            definitions = get_definitions_and_ratings(get_soup(result))
 
             return self._format_response(term, definitions)
         except urllib2.URLError as ue:
@@ -36,7 +36,14 @@ class UDefineResponder(object):
 
         response += '*{}*\n\n'.format(term)
 
-        response += '\n\n'.join(definition for definition in definitions[:5])
+        if len(definitions) > 0:
+            response += '\n\n'.join('{}\n:+1: {} :-1: {}'.format(
+                definition['meaning'],
+                definition['thumbs_up'],
+                definition['thumbs_down']
+            ) for definition in definitions[:5])
+        else:
+            response += 'There aren\'t any definitions for {} yet. Can you define it?'.format(term)
 
         return response
 
