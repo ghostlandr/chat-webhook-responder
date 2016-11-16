@@ -22,3 +22,11 @@ def get_difficulty_index(soup):
     except AttributeError:
         # This page doesn't have a difficulty-box on it
         return ''
+
+
+def get_word_type(soup):
+    try:
+        types = soup.find(class_='def-list').find(class_='luna-data-header')
+        return types.text.strip()  # Leaving this on its own line for possible future enhancements
+    except AttributeError:
+        return ''

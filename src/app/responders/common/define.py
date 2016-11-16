@@ -7,7 +7,7 @@ import urllib2
 from app.responders.hipchat import HipChatResponderMixin
 from app.responders.slack import SlackResponder
 from settings import DEFINE_TOKENS
-from app.parsers.dictionary import get_definitions, get_soup, get_difficulty_index
+from app.parsers.dictionary import get_definitions, get_soup, get_difficulty_index, get_word_type
 
 
 class NoDefinitionFoundError(Exception):
@@ -36,8 +36,9 @@ class DefineResponder(object):
             if not definitions:
                 raise NoDefinitionFoundError
             word_difficulty = get_difficulty_index(dat_soup)
+            word_type = get_word_type(dat_soup)
 
-            return self._format_response(term, definitions, word_difficulty)
+            return self._format_response(term, definitions, word_difficulty, word_type)
         except (NoDefinitionFoundError, urllib2.URLError) as ue:
             if ue.code == 404:
                 return 'Can\'t find anything for *{}*!'.format(term)
@@ -45,11 +46,12 @@ class DefineResponder(object):
             return 'Something went wrong with the request.'
 
     @staticmethod
-    def _format_response(term, definitions, word_difficulty):
+    def _format_response(term, definitions, word_difficulty, word_type='verb'):
         response = ''
 
         word_difficulty = '({})'.format(word_difficulty) if word_difficulty else ''
-        response += '*{}* {}\n\n'.format(term.capitalize(), word_difficulty)
+        word_type = '_{}_\n'.format(word_type) if word_type else ''
+        response += '*{}* {}\n{}\n'.format(term.capitalize(), word_difficulty, word_type)
 
         # Format like '1. Definition text'.
         response += '\n'.join([unicode(index + 1) + u'. ' + definition.capitalize().strip()
