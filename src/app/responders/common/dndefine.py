@@ -14,21 +14,21 @@ class DndefineResponder(object):
     TOKENS = DNDFINE_TOKENS
 
     def get_definitions(self, term):
-        logging.info('Searching checking dict for term: %s', term)
+        logging.info(u'Searching checking dict for term: %s', term)
         if term.lower() == "list":
-            return self._format_response(term, '\n'.join(DEFINITIONS.iterkeys())) 
+            return self._format_response(term, u'\n'.join(DEFINITIONS.iterkeys())) 
         return self._format_response(term, DEFINITIONS.get(term.lower()))
 
     @staticmethod
     def _format_response(term, definition):
-        response = ''
+        response = u''
 
-        response += '*{}*\n\n'.format(term)
+        response += u'*{}*\n\n'.format(term)
 
         if definition:
-            response += '\n\n' + definition + '\n'
+            response += u'\n\n' + definition + u'\n'
         else:
-            response += 'There aren\'t any definitions for {} yet.'.format(term)
+            response += u'There aren\'t any definitions for {} yet.'.format(term)
 
         return response
 
