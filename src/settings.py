@@ -33,6 +33,6 @@ GREETER_TOKENS = {
 
 DNDFINE_TOKENS = {
     'slack': [
-        '???'
+        'iUlyznH1X9PpKHq8fdTh6QNT'
     ]
 }
