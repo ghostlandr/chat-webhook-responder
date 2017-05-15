@@ -30,3 +30,9 @@ GREETER_TOKENS = {
         'HPPx5H6Yq5UL7F2pwfqW9vZ8'
     ]
 }
+
+DNDFINE_TOKENS = {
+    'slack': [
+        'iUlyznH1X9PpKHq8fdTh6QNT'
+    ]
+}

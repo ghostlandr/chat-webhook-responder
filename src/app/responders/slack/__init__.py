@@ -14,7 +14,9 @@ class SlackResponder(RequestHandler, BaseResponder):
         """
         Receive the post!
         """
-        token = self.request.POST['token']
+        token = self.request.POST.get('token')
+        if not token:
+            self.abort(401)
 
         if self.check_credentials(token):
             self.render_response({'text': self.process(self.request.POST)})
