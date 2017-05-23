@@ -2,7 +2,6 @@
 Definition webhook responder
 """
 import logging
-import urllib2
 
 from app.responders.slack import SlackResponder
 from settings import DNDFINE_TOKENS
@@ -16,7 +15,8 @@ class DndefineResponder(object):
     def get_definitions(self, term):
         logging.info(u'Searching checking dict for term: %s', term)
         if term.lower() == "list":
-            return self._format_response(term, u'\n'.join(DEFINITIONS.iterkeys())) 
+            return self._format_response(term, u', '.join(DEFINITIONS.iterkeys()))
+        term = term.replace(" ", "_")
         return self._format_response(term, DEFINITIONS.get(term.lower()))
 
     @staticmethod
@@ -26,7 +26,7 @@ class DndefineResponder(object):
         response += u'*{}*\n\n'.format(term)
 
         if definition:
-            response += u'\n\n' + definition + u'\n'
+            response += u'' + definition + u'\n'
         else:
             response += u'There aren\'t any definitions for {} yet.'.format(term)
 
@@ -98,4 +98,17 @@ DEFINITIONS = {
     'witch_bolt': '1st level Spell\nCasting Time: 1 action\nRange: 30ft\nComponents: V, S, M\nDuration: Concentration, up to 1 min\nDescription:  beam of crackling, blue energy lances out toward a creature within range, forming a sustained arc of lightning between you and the target. Make a ranged spell attack against that creature. On a hit, the target takes 1d12 lightning damage, and on each of your turns for the duration, you can use your action to deal 1d12 lightning damage to the target automatically. The spell ends if you use your action to do anything else. The spell lso ends if the target is ever outside the spells range or if it has total cover from you.\nAt HigherLevels. When you cast this spell using a spell slot of 2nd level or higher, the initial damage increases by 1d12 for each slot level above 1st.',
     'arms_of_hadar': '1st level Spell\nCasting Time: 1 action\nRange: Self (10-foot radius)\nComponents: V, S\nDuration: Instantaneous\nDescription: You invoke the power of Hadar, the Dark Hunger. Tendrils of dark energy erupt from you and batter all creatures within 10 feet of you. Each creature in that area must make a Strength saving throw. On a failed save, a target takes 2d6 necrotic damage and cant take reactions until its next turn. On a successful save, the creature takes half damage, but suffers no other effect.\nAtHigherLevels. When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d6 for each slot level above 1st.',
     'thaumaturgy': 'Cantrip\nCasting Time: 1 action\nRange: 30ft\nComponents: V\nDuration: Up to 1 minute\nDescription: You manifest a minor wonder, a sign of supernatural power, within range. You create one of the following magical effects within range:\n- Your voice booms up to three times as loud as normal for 1 minute.\n- You cause flames to flicker, brighten, dim, or change color for 1 minute.\n- You cause harmless tremors in the ground for 1 minute.\n- You create an instantaneous sound that originates from a point of your choice within range, such as a rumble of thunder, the cry of a raven, or ominous whispers.\n- You instantaneously cause an unlocked door or win  dow to fly open or slam shut.\n- You alter the appearance of your eyes for 1 minute.\nIf you cast this spell multiple times, you can have up to three of its 1-minute effects active at a time, and you can dismiss such an effect as an action.',
+    'burning_hands': '1st level Evocation\nCasting Time: 1 action\nRange: Self (15-foot cone)\nComponents: V, S\nDuration: Instantaneous\nDescription: As you hold your hands with thumbs touching and fingers spread, a thin sheet of flames shoots forth from your outstretched fingertips. Each creature in a 15-foot cone must make a Dexterity saving throw. A creature takes 3d6 fire damage on a failed save, or half as much damage on a successful one. \nThe fire ignites any flammable objects in the area that arent being worn or carried.',
+    'action_surge': 'Starting at 2nd level, you can push yourself beyond your normal limits for a moment. On your turn, you can take one additional action on top of your regular action and a possible bonus action. Once you use this feature, you must finish a short or long rest before you can use it again.',
+    'fiendish_vigor': 'You can cast false life on yourself at will as a 1st-level spell, without expending a spell slot or material com ponents.',
+    'agonizing_blast': '_Prerequisite: eldritch blast cantrip_\nWhen you cast eldritch blast, add your Charisma modifier to the damage it deals on a hit.',
+    'false_life': '1st level necromancy\nCasting Time: 1 action\nRange: self\nComponents: V, S, M\nDuration: 1 hour\nDescription: Bolstering your self with a necromantic facsimile of life, you gain 1d4+4 temporary hitpoints for the duration.\nAt Higher Levels: When you cast this spell using a spell slot of 2nd level or higher, you gain 5 additional temporary hit points for each slot level above 1st.',
+    'spell_slot': 'Regardless of how many spells a caster knows or prepares, he or she can cast only a limited number of spells before resting. Spell slots represent the number (and power) of spells a caster can cast between long rests',
+    'grappling': 'The target of your grapple must be no more than one size larger than you, and it must be within your reach. Using at least one free hand, you try to seize the target by making a grapple check, a Strength (Athletics) check contested by the targets Strength (Athletics) or Dexterity (Acrobatics) check (the target chooses the ability to use). If you succeed, you subject the target to the grappled condition',
+    'escape_grapple': 'A grappled creature can use its action to escape. To do so, it must succeed on a Strength (Athletics) or Dexterity (Acrobatics) check contested by your Strength (Athletics) check',
+    'grapple_condition': '- A grappled creatures speed becom es 0, and it cant benefit from any bonus to its speed\n- The condition ends if the grappler is incapacitated \n -The condition also ends if an effect rem oves the grappled creature from the reach of the grappler or grappling effect, such as when a creature is hurled away by the thunderwave spell',
+    'temporary_hit_points': 'Temporary hit points arent actual hit points; they are a buffer against damage, a pool of hit points that protect you from injury.\nWhen you take damage, the temporary hit points are lost first.\nHealing cant restore temporary hit points, and they cant be added together',
+    'archery': 'Ranger: You gain a +2 bonus to attack rolls you make with ranged weapons.',
+    'cure_wounds': '1st level evocation\nCasting Time: 1 action\nRange: touch\nComponents: V,S\nDuration: Instantaneous\nDescription: A creature you touch regains a number of hit points equal to 1d8 + your spellcasting ability modifier. This spell has no effect on undead or constructs.',
+    'hunters_mark': '1st level divination\nCasting Time: 1 bonus Action\nRange: 90 feet\nComponents: V\nDuration: Concentration, up to 1 hour\nDescription: You choose a creature you can see within range and mystically mark it as your quarry. Until the spell ends, you deal an extra 1d6 damage to the target whenever you hit it with a weapon attack, and you have advantage on any Wisdom (Perception) or Wisdom (Survival) check you make to find it. If the target drops to 0 hit points before this spell ends, you can use a bonus action on a subsequent turn of yours to mark a new creature.',
 }
