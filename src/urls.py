@@ -8,4 +8,6 @@ ROUTES = [
     Route('/udefine/slack', handler='app.responders.common.udefine.UDefineSlackResponder'),
     Route('/udefine/hipchat', handler='app.responders.hipchat.udefine.UDefineHipChatResponder'),
     Route('/dndefine/slack', handler='app.responders.common.dndefine.DndefineSlackResponder'),
+    Route('/cal/slack', handler='app.responders.common.cal.CalSlackResponder'),
+
 ]
