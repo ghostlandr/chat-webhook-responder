@@ -1,14 +1,16 @@
+""" cal.py """
 import calendar
-
 import datetime
 
-from app.responders.slack import SlackResponder
+from app.responders.slack import SlackCommandResponder
 
 from settings import CALENDAR_TOKENS
 
-class CalSlackResponder(SlackResponder):
+class CalSlackResponder(SlackCommandResponder):
     """ Respond to requests for /cal commands """
+
     TOKENS = CALENDAR_TOKENS
+    RESPONSE_TYPE = "in_channel"
 
     def process(self, args):
         """
