@@ -4,8 +4,11 @@ import datetime
 
 from app.responders.slack import SlackResponder
 
+from settings import CALENDAR_TOKENS
 
 class CalSlackResponder(SlackResponder):
+    """ Respond to requests for /cal commands """
+    TOKENS = CALENDAR_TOKENS
 
     def process(self, args):
         """
