@@ -2,10 +2,10 @@ import calendar
 
 import datetime
 
-from app.responders.slack import SlackResponder
+from app.responders.slack import SlackCommandResponder
 
 
-class CalSlackResponder(SlackResponder):
+class CalSlackResponder(SlackCommandResponder):
 
     def process(self, args):
         """
