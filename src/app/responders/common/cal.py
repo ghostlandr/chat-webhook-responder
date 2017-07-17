@@ -7,6 +7,8 @@ from app.responders.slack import SlackCommandResponder
 
 class CalSlackResponder(SlackCommandResponder):
 
+    RESPONSE_TYPE = "in_channel"
+
     def process(self, args):
         """
         Return a pretty-printed monthly calendar

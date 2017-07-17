@@ -110,4 +110,6 @@ class SlackCommandResponder(RequestHandler, BaseResponder):
         """
         return []
 
+    def prepare_string(args):
+        pass
 
