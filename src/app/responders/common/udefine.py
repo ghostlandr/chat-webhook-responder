@@ -26,7 +26,10 @@ class UDefineResponder(object):
             return self._format_response(term, definitions)
         except urllib2.URLError as ue:
             if ue.code == 404:
-                return 'Can\'t find anything for *{}*!'.format(term)
+                return u'Can\'t find anything for *{}*!'.format(term)
+            elif str(ue.code).startswith('4'):
+                logging.info(u'Got an error: {}, trying again'.format(ue.message))
+                return self.get_definitions(term)
             # We don't know (read: haven't implemented) what went wrong, return something generic.
             return 'Something went wrong with the request.'
 
@@ -34,16 +37,16 @@ class UDefineResponder(object):
     def _format_response(term, definitions):
         response = ''
 
-        response += '*{}*\n\n'.format(term)
+        response += u'*{}*\n\n'.format(term)
 
         if len(definitions) > 0:
-            response += '\n\n'.join('{}\n:+1: {} :-1: {}'.format(
+            response += '\n\n'.join(u'{}\n:+1: {} :-1: {}'.format(
                 definition['meaning'],
                 definition['thumbs_up'],
                 definition['thumbs_down']
             ) for definition in definitions[:5])
         else:
-            response += 'There aren\'t any definitions for {} yet. Can you define it?'.format(term)
+            response += u'There aren\'t any definitions for {} yet. Can you define it?'.format(term)
 
         return response
 

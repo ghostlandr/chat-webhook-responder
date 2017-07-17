@@ -36,3 +36,9 @@ DNDFINE_TOKENS = {
         'iUlyznH1X9PpKHq8fdTh6QNT'
     ]
 }
+
+CALENDAR_TOKENS = {
+    'slack': [
+        'lwz03XNXv1yaeBRx4MfofWSS'
+    ]
+}
