@@ -77,6 +77,7 @@ class SlackCommandResponder(RequestHandler, BaseResponder):
         return token in cls.TOKENS['slack']
 
     def render_response(self, args):
+        self.response.headers['Content-Type'] = 'application/json'
         return self.response.write(json.dumps(args))
 
     def build_attachment(self):
