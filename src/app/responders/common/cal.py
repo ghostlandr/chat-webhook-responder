@@ -16,7 +16,7 @@ class CalSlackResponder(SlackCommandResponder):
         """
         Return a pretty-printed monthly calendar
         """
-        return "```{}```".format(calendar.TextCalendar().formatmonth(*self.determine_date(args)))
+        return "```{}```".format(calendar.TextCalendar(firstweekday=6).formatmonth(*self.determine_date(args)))
 
     @staticmethod
     def determine_date(args):
