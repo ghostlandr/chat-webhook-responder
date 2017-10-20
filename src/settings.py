@@ -42,3 +42,9 @@ CALENDAR_TOKENS = {
         'lwz03XNXv1yaeBRx4MfofWSS'
     ]
 }
+
+RANDOM_SELECTION_TOKENS = {
+    'slack': [
+        'wjWFZdYWtQuT6p1DKRGWPOfx'
+    ]
+}
