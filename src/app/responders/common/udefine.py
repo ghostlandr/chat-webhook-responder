@@ -2,9 +2,10 @@
 Definition webhook responder
 """
 import logging
+import unicodedata
 import urllib2
 
-from app.parsers.dictionary import get_definitions, get_soup, get_definitions_and_ratings
+from app.parsers.dictionary import get_soup, get_definitions_and_ratings
 from app.responders.slack import SlackResponder
 from settings import UDEFINE_TOKENS
 
@@ -20,7 +21,9 @@ class UDefineResponder(object):
         logging.info('Searching urbandictionary.com for term: %s', term)
 
         try:
-            result = urllib2.urlopen(self.URBAN_DICTIONARY_TEMPLATE.format(urllib2.quote(term)))
+            safe_term = unicodedata.normalize('NFKD', term).encode('ascii', 'ignore')
+
+            result = urllib2.urlopen(self.URBAN_DICTIONARY_TEMPLATE.format(urllib2.quote(safe_term)))
             definitions = get_definitions_and_ratings(get_soup(result))
 
             return self._format_response(term, definitions)
@@ -35,7 +38,7 @@ class UDefineResponder(object):
 
     @staticmethod
     def _format_response(term, definitions):
-        response = ''
+        response = u''
 
         response += u'*{}*\n\n'.format(term)
 
