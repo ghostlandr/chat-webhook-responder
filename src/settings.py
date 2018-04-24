@@ -8,6 +8,7 @@ DEFINE_TOKENS = {
         '70XqnEL12zOlA08Fo0lraciE',
         'ayYWtEzhfqh5GcXdEqrD3H3h',
         '7b5WbqiybRqPDRTm2e9GvTUL',
+        'x56o3ZQzti2l7YEb7ntRu4gE',
     ],
     # HipChat integration ids. Discovered by searching the logs
     'hipchat': [
