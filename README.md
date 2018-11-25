@@ -7,7 +7,7 @@ An assortment (I hope) of webhooks to tie into Slack, HipChat, or any other chat
 
 #### Define `define: <word>` or `/define <word>`
 
-Use the trigger_word and get a definition back. Looks something like this:
+Use the trigger_word and get a definition back. Now hosted [here](https://github.com/gholtslander-va/chat-webhook-responder-go)
 
 #### Urban Dictionary Define `udefine: <word or phrase>` or `/udefine <word or phrase>`
 
